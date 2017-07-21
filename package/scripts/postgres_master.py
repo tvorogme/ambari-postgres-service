@@ -8,6 +8,9 @@ class PostgresServer(PostgresBase):
         import params
         env.set_params(params)
         self.install_postgres(env)
+        print "Initializing Postgress DB"
+        init_cmd = format("service postgresql-9.6 initdb")
+        Execute(init_cmd)
         self.configure_postgres(env)
 
     def configure(self, env):

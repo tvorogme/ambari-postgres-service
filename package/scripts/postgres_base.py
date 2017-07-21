@@ -16,7 +16,7 @@ class PostgresBase(Script):
         Execute('yum -y remove postgresql92-9.2.15-1.57.amzn1.x86_64')
         Execute('yum -y remove postgresql92-libs-9.2.15-1.57.amzn1.x86_64')
         Execute('yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-ami201503-96-9.6-2.noarch.rpm')
-        print "Installing postgres..."
+        print "Installing Postgres..."
         for pack in self.postgres_packages:
             Package(pack)
 
