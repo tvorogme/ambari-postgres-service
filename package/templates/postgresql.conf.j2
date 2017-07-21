@@ -192,7 +192,7 @@ dynamic_shared_memory_type = posix # the default is the first option
 #wal_compression = off   # enable compression of full-page writes
 #wal_log_hints = off   # also do full page writes of non-critical updates
        # (change requires restart)
-wal_buffers = -1    # min 32kB, -1 sets based on shared_buffers
+wal_buffers = {{wal_buffers}}    # min 32kB, -1 sets based on shared_buffers
        # (change requires restart)
 #wal_writer_delay = 200ms  # 1-10000 milliseconds
 #wal_writer_flush_after = 1MB  # measured in pages, 0 disables
