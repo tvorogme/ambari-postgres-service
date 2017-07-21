@@ -1,49 +1,49 @@
 #!/bin/bash
 
 if [[ "$@" == *"--help"* ]]; then
-  echo "mongok script, wrapper around common mongod client commands to connect directly"
-  echo "to the mongo which sits in this kave. Reads the contents of /etc/mongoclient.conf"
-  echo "understands export import perf stat dump files oplog restore top and the mongo shell"
+  echo "postgresk script, wrapper around common postgresd client commands to connect directly"
+  echo "to the postgres which sits in this kave. Reads the contents of /etc/postgresclient.conf"
+  echo "understands export import perf stat dump files oplog restore top and the postgres shell"
   echo ""
-  echo "usage: mongok [command] [other arguments]"
-  echo "e.g.: mongok /foo #opens the mongo shell to mongo_host:mongo_port/foo database"
-  echo "e.g.: mongok top #starts mongotop --host mongo_host:mongo_port"
+  echo "usage: postgresk [command] [other arguments]"
+  echo "e.g.: postgresk /foo #opens the postgres shell to postgres_host:postgres_port/foo database"
+  echo "e.g.: postgresk top #starts postgrestop --host postgres_host:postgres_port"
 fi
 
-mongo_host=''
-mongo_port=''
+postgres_host=''
+postgres_port=''
 known_commands="export import perf stat dump files oplog restore top"
-if [ -f /etc/mongoclient.conf ]; then
-  mongo_host_tmp=`grep -e mongo_host /etc/mongoclient.conf | awk -F ":" '{print $2}' | tr -d '[[:space:]]'`
-  mongo_port_tmp=`grep -e mongo_port /etc/mongoclient.conf | awk -F ":" '{print $2}' | tr -d '[[:space:]]'`
-  if [ ! -z "$mongo_host_tmp" ]; then
-    mongo_host=$mongo_host_tmp
+if [ -f /etc/postgresclient.conf ]; then
+  postgres_host_tmp=`grep -e postgres_host /etc/postgresclient.conf | awk -F ":" '{print $2}' | tr -d '[[:space:]]'`
+  postgres_port_tmp=`grep -e postgres_port /etc/postgresclient.conf | awk -F ":" '{print $2}' | tr -d '[[:space:]]'`
+  if [ ! -z "$postgres_host_tmp" ]; then
+    postgres_host=$postgres_host_tmp
   fi
-  if [ ! -z "$mongo_port_tmp" ]; then
-    mongo_port=$mongo_port_tmp
+  if [ ! -z "$postgres_port_tmp" ]; then
+    postgres_port=$postgres_port_tmp
   fi
 else
-  echo "Error: no /etc/mongoclient.conf found!"
+  echo "Error: no /etc/postgresclient.conf found!"
   exit 1
 fi
 
-if [ -z "$mongo_host" ]; then
-  echo "Error: no mongo_host found from /etc/mongoclient.conf"
+if [ -z "$postgres_host" ]; then
+  echo "Error: no postgres_host found from /etc/postgresclient.conf"
   exit 1
 fi
-if [ -z "$mongo_port" ]; then
-  echo "Error: no mongo_port found from /etc/mongoclient.conf"
+if [ -z "$postgres_port" ]; then
+  echo "Error: no postgres_port found from /etc/postgresclient.conf"
   exit 1
 fi
 
 
 
 if [ -z "$1" ]; then
-  mongo ${mongo_host}:${mongo_port}
+  postgres ${postgres_host}:${postgres_port}
 elif [[ "$known_commands" == *"$1"* ]]; then
-  mongo$@ --host ${mongo_host}:${mongo_port}
+  postgres$@ --host ${postgres_host}:${postgres_port}
 elif [[ "${1:0:1}" == "/" ]]; then
-  mongo ${mongo_host}:${mongo_port}$@
+  postgres ${postgres_host}:${postgres_port}$@
 else
-  mongo ${mongo_host}:${mongo_port} $@
+  postgres ${postgres_host}:${postgres_port} $@
 fi
