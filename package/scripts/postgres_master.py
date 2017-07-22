@@ -34,11 +34,11 @@ class PostgresServer(PostgresBase):
     def restart(self, env):
         print "Restartarting postgres"
         self.configure(env)
-        Execute('service service postgresql-9.6 restart')
+        Execute('service postgresql-9.6 restart')
 
     def status(self, env):
         print "Checking postgres status..."
-        Execute('service service postgresql-9.6 status')
+        Execute('service postgresql-9.6 status')
 
 if __name__ == "__main__":
     PostgresServer().execute()
