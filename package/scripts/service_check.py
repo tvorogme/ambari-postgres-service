@@ -23,8 +23,6 @@ class ServiceCheck(Script):
     def service_check(self, env):
         import params
         env.set_params(params)
-        seeds = params.seed_provider_parameters_seeds[1:-1].split(",")
-        host=seeds[0]
         cmdfile=format("/tmp/cmds")
         File(cmdfile,
              mode=0600,
