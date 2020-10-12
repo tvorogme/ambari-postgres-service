@@ -1,5 +1,6 @@
 from resource_management import *
 from postgres_base import PostgresBase
+from resource_management.core.exceptions import ExecutionFailed
 
 class PostgresServer(PostgresBase):
     postgres_packages = ['postgresql-13']
@@ -10,7 +11,10 @@ class PostgresServer(PostgresBase):
         self.install_pg(env)
         print("Initializing Postgress DB")
         init_cmd = format('/usr/pgsql-13/bin/postgresql-13-setup initdb')
-        Execute(init_cmd)
+        try:
+            Execute(init_cmd)
+        except ExecutionFailed as ef:
+            print("Error {0}".format(ef))
         self.config_pg(env)
 
     def configure(self, env):
