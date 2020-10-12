@@ -2,7 +2,7 @@ from resource_management import *
 from postgres_base import PostgresBase
 
 class PostgresClient(PostgresBase):
-    postgres_packages = ['postgresql96']
+    postgres_packages = ['postgresql-13']
 
     def install(self, env):
         import params

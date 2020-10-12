@@ -7,18 +7,13 @@ from resource_management import *
 
 class PostgresBase(Script):
 
-    postgres_packages = []
+    postgres_packages = ['postgresql-13']
 
     def install_postgres(self, env):
         import params
         env.set_params(params)
-        Execute('yum -y remove postgresql92-server-9.2.15-1.57.amzn1.x86_64')
-        Execute('yum -y remove postgresql92-9.2.15-1.57.amzn1.x86_64')
-        Execute('yum -y remove postgresql92-libs-9.2.15-1.57.amzn1.x86_64')
-        Execute('yum -y install https://download.postgresql.org/pub/repos/yum/9.6/redhat/rhel-6-x86_64/pgdg-ami201503-96-9.6-2.noarch.rpm')
-        print "Installing Postgres..."
-        for pack in self.postgres_packages:
-            Package(pack)
+        Execute('yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm')
+        Execute('yum install -y postgresql13-server')
 
     def configure_postgres(self, env):
         import params

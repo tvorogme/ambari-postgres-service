@@ -17,7 +17,7 @@ from resource_management import *
 
 config = Script.get_config()
 
-conf_dir = "/var/lib/pgsql/9.6/data"
+conf_dir = "/var/lib/pgsql/13/data"
 
 # env settings
 postgres_user = config['configurations']['postgres-env']['postgres_user']

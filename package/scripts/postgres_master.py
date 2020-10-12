@@ -2,14 +2,14 @@ from resource_management import *
 from postgres_base import PostgresBase
 
 class PostgresServer(PostgresBase):
-    postgres_packages = ['postgresql96-server']
+    postgres_packages = ['postgresql-13']
 
     def install(self, env):
         import params
         env.set_params(params)
         self.install_postgres(env)
-        print "Initializing Postgress DB"
-        init_cmd = format("service postgresql-9.6 initdb")
+        print("Initializing Postgress DB")
+        init_cmd = format('/usr/pgsql-13/bin/postgresql-13-setup initdb')
         Execute(init_cmd)
         self.configure_postgres(env)
 
@@ -17,28 +17,28 @@ class PostgresServer(PostgresBase):
         import params
         env.set_params(params)
         self.configure_postgres(env)
-        reload_cmd = format("service postgresql-9.6 reload")
+        reload_cmd = format("service postgresql-13 reload")
         Execute(reload_cmd)
 
     def start(self, env):
-        print "Starting postgres"
+        print("Starting postgres")
         self.configure(env)
-        start_cmd = format("service postgresql-9.6 start")
+        start_cmd = format("service postgresql-13 start")
         Execute(start_cmd)
 
     def stop(self, env):
-        print "Stopping postgres"
-        stop_cmd = format("service postgresql-9.6 stop")
+        print("Stopping postgres")
+        stop_cmd = format("service postgresql-13 stop")
         Execute(stop_cmd)
 
     def restart(self, env):
-        print "Restartarting postgres"
+        print("Restartarting postgres")
         self.configure(env)
-        Execute('service postgresql-9.6 restart')
+        Execute('service postgresql-13 restart')
 
     def status(self, env):
-        print "Checking postgres status..."
-        Execute('service postgresql-9.6 status')
+        print("Checking postgres status...")
+        Execute('service postgresql-13 status')
 
 if __name__ == "__main__":
     PostgresServer().execute()
