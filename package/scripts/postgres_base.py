@@ -1,5 +1,5 @@
 from resource_management import *
-
+from resource_management.core.exceptions import ExecutionFailed
 
 class PostgresBase(Script):
     postgres_packages = ['postgresql-13']
@@ -7,8 +7,11 @@ class PostgresBase(Script):
     def install_pg(self, env):
         import params
         env.set_params(params)
-        Execute(
-            'rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm &> /dev/null')
+
+        try:
+            Execute('rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm')
+        except ExecutionFailed as ef:
+            print("Error, maybe installed {0}".format(ef))
         Execute('yum install -y postgresql13-server')
 
     def config_pg(self, env):
