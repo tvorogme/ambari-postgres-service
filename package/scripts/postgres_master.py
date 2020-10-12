@@ -7,22 +7,22 @@ class PostgresServer(PostgresBase):
     def install(self, env):
         import params
         env.set_params(params)
-        self.install(env)
+        self.install_pg(env)
         print("Initializing Postgress DB")
         init_cmd = format('/usr/pgsql-13/bin/postgresql-13-setup initdb')
         Execute(init_cmd)
-        self.configure(env)
+        self.config_pg(env)
 
     def configure(self, env):
         import params
         env.set_params(params)
-        self.configure_postgres(env)
+        self.config_pg(env)
         reload_cmd = format("service postgresql-13 reload")
         Execute(reload_cmd)
 
     def start(self, env):
         print("Starting postgres")
-        self.configure(env)
+        self.config_pg(env)
         start_cmd = format("service postgresql-13 start")
         Execute(start_cmd)
 
@@ -33,7 +33,7 @@ class PostgresServer(PostgresBase):
 
     def restart(self, env):
         print("Restartarting postgres")
-        self.configure(env)
+        self.config_pg(env)
         Execute('service postgresql-13 restart')
 
     def status(self, env):
