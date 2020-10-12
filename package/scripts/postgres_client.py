@@ -7,7 +7,7 @@ class PostgresClient(PostgresBase):
     def install(self, env):
         import params
         env.set_params(params)
-        self.install_postgres(env)
+        self.install(env)
         self.configure(env)
 
 if __name__ == "__main__":

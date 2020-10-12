@@ -9,13 +9,13 @@ class PostgresBase(Script):
 
     postgres_packages = ['postgresql-13']
 
-    def install_postgres(self, env):
+    def install(self, env):
         import params
         env.set_params(params)
         Execute('yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm')
         Execute('yum install -y postgresql13-server')
 
-    def configure_postgres(self, env):
+    def configure(self, env):
         import params
         env.set_params(params)
         site_configurations = params.config['configurations']['postgres-site']

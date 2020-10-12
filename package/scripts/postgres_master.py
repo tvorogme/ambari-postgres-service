@@ -7,11 +7,11 @@ class PostgresServer(PostgresBase):
     def install(self, env):
         import params
         env.set_params(params)
-        self.install_postgres(env)
+        self.install(env)
         print("Initializing Postgress DB")
         init_cmd = format('/usr/pgsql-13/bin/postgresql-13-setup initdb')
         Execute(init_cmd)
-        self.configure_postgres(env)
+        self.configure(env)
 
     def configure(self, env):
         import params
