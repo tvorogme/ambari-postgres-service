@@ -5,9 +5,8 @@
     <service>
       <name>POSTGRESDB</name>
       <displayName>PostgresDB</displayName>
-      <comment>PostgreSQL is a powerful, open source object-relational database system.
-        WARNING!!! Do NOT install on the Ambari node, it will delete the Ambari Postgres and ruin your cluster.</comment>
-      <version>9.6</version>
+      <comment>PostgreSQL is cool</comment>
+      <version>13</version>
       <components>
         <component>
           <name>POSTGRESDB_SERVER</name>
