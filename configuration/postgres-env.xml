@@ -21,28 +21,39 @@
 -->
 
 <configuration>
-  <property>
-    <name>postgres_user</name>
-    <display-name>Postgres User</display-name>
-    <value>postgres</value>
-    <property-type>USER</property-type>
-    <description>User to run Postgres service</description>
-  </property>
-  <property>
-    <name>postgres_user_group</name>
-    <display-name>Postgres User Group</display-name>
-    <value>postgres</value>
-    <property-type>GROUP</property-type>
-    <description>Group to run Postgres service</description>
-  </property>
-  <property>
-    <name>postgres_pid_dir</name>
-    <value>/var/run/postgresql</value>
-    <description>Postgres PID Dir</description>
-    <value-attributes>
-      <type>directory</type>
-      <overridable>false</overridable>
-      <editable-only-at-install>true</editable-only-at-install>
-    </value-attributes>
-  </property>
+    <property>
+        <name>postgres_user</name>
+        <display-name>Postgres User</display-name>
+        <value>postgres</value>
+        <property-type>USER</property-type>
+        <description>User to run Postgres service</description>
+        <value-attributes>
+            <type>user</type>
+            <overridable>false</overridable>
+            <user-groups>
+                <property>
+                    <type>cluster-env</type>
+                    <name>user_group</name>
+                </property>
+            </user-groups>
+        </value-attributes>
+        <on-ambari-upgrade add="false"/>
+    </property>
+    <property>
+        <name>postgres_user_group</name>
+        <display-name>Postgres User Group</display-name>
+        <value>postgres</value>
+        <property-type>GROUP</property-type>
+        <description>Group to run Postgres service</description>
+    </property>
+    <property>
+        <name>postgres_pid_dir</name>
+        <value>/var/run/postgresql</value>
+        <description>Postgres PID Dir</description>
+        <value-attributes>
+            <type>directory</type>
+            <overridable>false</overridable>
+            <editable-only-at-install>true</editable-only-at-install>
+        </value-attributes>
+    </property>
 </configuration>
