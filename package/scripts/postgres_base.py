@@ -8,7 +8,7 @@ class PostgresBase(Script):
         import params
         env.set_params(params)
         Execute(
-            'yum install -y https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm')
+            'rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm')
         Execute('yum install -y postgresql13-server')
 
     def config_pg(self, env):
