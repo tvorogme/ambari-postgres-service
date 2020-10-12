@@ -7,8 +7,11 @@ class PostgresBase(Script):
     def install_pg(self, env):
         import params
         env.set_params(params)
-        Execute(
+        try:
+            Execute(
             'rpm -Uvh https://download.postgresql.org/pub/repos/yum/reporpms/EL-7-x86_64/pgdg-redhat-repo-latest.noarch.rpm')
+        except Exception as e:
+            print(f"ERROR: Maybe already installed? {e}")
         Execute('yum install -y postgresql13-server')
 
     def config_pg(self, env):
