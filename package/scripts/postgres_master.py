@@ -1,6 +1,6 @@
 from resource_management import *
 from postgres_base import PostgresBase
-from resource_management.core.exceptions import ExecutionFailed
+from resource_management.core.exceptions import ExecutionFailed, ComponentIsNotRunning
 
 class PostgresServer(PostgresBase):
     postgres_packages = ['postgresql-13']
@@ -45,7 +45,7 @@ class PostgresServer(PostgresBase):
         try:
             Execute('systemctl status postgresql-13')
         except ExecutionFailed:
-            return False
+            raise ComponentIsNotRunning
 
 if __name__ == "__main__":
     PostgresServer().execute()
