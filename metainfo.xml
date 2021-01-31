@@ -3,7 +3,7 @@
   <schemaVersion>2.0</schemaVersion>
   <services>
     <service>
-      <name>POSTGRESDB</name>
+      <name>POSTGRESDB_HL</name>
       <displayName>PostgresDB 13</displayName>
       <comment>PostgreSQL is cool</comment>
       <version>13</version>

@@ -21,28 +21,31 @@ class PostgresServer(PostgresBase):
         import params
         env.set_params(params)
         self.config_pg(env)
-        reload_cmd = format("service postgresql-13 reload")
+        reload_cmd = format("systemctl reload postgresql-13")
         Execute(reload_cmd)
 
     def start(self, env):
         print("Starting postgres")
         self.config_pg(env)
-        start_cmd = format("service postgresql-13 start")
+        start_cmd = format("systemctl start postgresql-13")
         Execute(start_cmd)
 
     def stop(self, env):
         print("Stopping postgres")
-        stop_cmd = format("service postgresql-13 stop")
+        stop_cmd = format("systemctl stop postgresql-13")
         Execute(stop_cmd)
 
     def restart(self, env):
         print("Restartarting postgres")
         self.config_pg(env)
-        Execute('service postgresql-13 restart')
+        Execute('systemctl restart postgresql-13')
 
     def status(self, env):
         print("Checking postgres status...")
-        Execute('service postgresql-13 status')
+        try:
+            Execute('systemctl status postgresql-13')
+        except ExecutionFailed:
+            return False
 
 if __name__ == "__main__":
     PostgresServer().execute()
